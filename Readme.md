@@ -1,6 +1,6 @@
 # Lung and Colon Cancer Image Analysis
 
-This project provides exploratory data analysis (EDA) tools for analyzing lung and colon cancer microscopy images. The dataset includes images of different types of lung and colon tissues, both normal and cancerous.
+This project implements a comprehensive deep learning approach for lung and colon cancer classification using microscopy images. The project includes training a custom three-layer CNN from scratch and fine-tuning pre-trained ResNet50 and EfficientNet models, followed by performance comparison and analysis.
 
 ## Dataset Structure
 
@@ -124,16 +124,6 @@ All plots are saved in `src/analysis/plots/`:
 - `lung_quality_metrics.png`: Distribution of blur, contrast, and brightness metrics
 - `lung_texture_features.png`: Distribution of GLCM texture features
 - `lung_sample_images.png`: Sample images from each class
-
-## Requirements
-
-- Python 3.8+
-- NumPy >= 1.24.0
-- OpenCV >= 4.8.0
-- Matplotlib >= 3.7.0
-- Pandas >= 2.0.0
-- scikit-image >= 0.21.0
-- SciPy >= 1.10.0
 
 ## Analysis Features
 
