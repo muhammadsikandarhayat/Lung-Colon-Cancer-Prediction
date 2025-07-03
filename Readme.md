@@ -22,6 +22,7 @@ dataset/
 ├── dataset/          # Contains all image datasets
 ├── src/
 │   └── analysis/
+│       ├── plots/    # Generated visualization outputs
 │       ├── eda_colon.py  # Colon cancer image analysis
 │       └── eda_lungs.py  # Lung cancer image analysis
 └── requirements.txt  # Python dependencies
@@ -38,7 +39,7 @@ dataset/
 
 2. Install dependencies:
    ```bash
-   pip install numpy>=1.24.0 opencv-python>=4.8.0 matplotlib>=3.7.0 pandas>=2.0.0
+   pip install -r requirements.txt
    ```
 
 ## Analysis Scripts
@@ -48,9 +49,20 @@ dataset/
 This script analyzes colon cancer images and generates:
 
 - Class distribution statistics
-- RGB channel intensity distributions
+- RGB and HSV color space analysis
+- Image quality metrics:
+  - Blur detection
+  - Contrast measurement
+  - Brightness analysis
+- Texture analysis using GLCM features:
+  - Contrast
+  - Dissimilarity
+  - Homogeneity
+  - Energy
+  - Correlation
 - Basic image statistics (mean, std, min, max values)
-- Image dimension analysis
+- Image dimension and aspect ratio analysis
+- File size distribution
 
 To run:
 
@@ -63,10 +75,13 @@ python src/analysis/eda_colon.py
 This script provides analysis for lung cancer images including:
 
 - Distribution analysis across three classes (ACA, Normal, SCC)
-- RGB channel intensity distributions
+- RGB and HSV color space analysis
+- Image quality metrics
+- Texture feature analysis
 - Sample image visualization
 - Basic image statistics
-- Image dimension analysis
+- Image dimension and aspect ratio analysis
+- File size distribution
 
 To run:
 
@@ -78,23 +93,36 @@ python src/analysis/eda_lungs.py
 
 Both scripts generate:
 
-1. Statistical summaries printed to console
-2. Visualization plots saved as PNG files:
+1. Statistical summaries printed to console:
+   - Class distribution
+   - Image dimensions
+   - Aspect ratio statistics
+   - File size statistics
+2. Visualization plots saved in `src/analysis/plots/`:
    - Class distribution plots
    - RGB intensity distribution plots
-   - Sample images (lung dataset only)
+   - Quality metrics distributions
+   - Texture feature distributions
 
 ## Generated Visualizations
 
 ### Colon Cancer Dataset
 
+All plots are saved in `src/analysis/plots/`:
+
 - `colon_class_distribution.png`: Bar plot showing the distribution of images across classes
 - `colon_intensity_distribution.png`: RGB channel intensity distributions for each class
+- `colon_quality_metrics.png`: Distribution of blur, contrast, and brightness metrics
+- `colon_texture_features.png`: Distribution of GLCM texture features
 
 ### Lung Cancer Dataset
 
+All plots are saved in `src/analysis/plots/`:
+
 - `lung_class_distribution.png`: Bar plot showing the distribution of images across three classes
 - `lung_intensity_distribution.png`: RGB channel intensity distributions for each class
+- `lung_quality_metrics.png`: Distribution of blur, contrast, and brightness metrics
+- `lung_texture_features.png`: Distribution of GLCM texture features
 - `lung_sample_images.png`: Sample images from each class
 
 ## Requirements
@@ -104,3 +132,32 @@ Both scripts generate:
 - OpenCV >= 4.8.0
 - Matplotlib >= 3.7.0
 - Pandas >= 2.0.0
+- scikit-image >= 0.21.0
+- SciPy >= 1.10.0
+
+## Analysis Features
+
+### Image Quality Analysis
+
+- Blur detection using Laplacian variance
+- Contrast measurement
+- Brightness analysis
+- Aspect ratio statistics
+- File size distribution
+
+### Texture Analysis
+
+- GLCM (Gray Level Co-occurrence Matrix) features:
+  - Contrast
+  - Dissimilarity
+  - Homogeneity
+  - Energy
+  - Correlation
+- Local Binary Patterns (LBP) features implementation available
+
+### Color Analysis
+
+- RGB channel statistics
+- HSV color space analysis
+- Mean and standard deviation for each channel
+- Intensity distributions
