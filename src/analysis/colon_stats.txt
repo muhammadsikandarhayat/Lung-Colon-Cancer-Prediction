@@ -1,0 +1,18 @@
+Dataset Statistics:
+Number of classes: 2
+
+Class distribution:
+colon_aca: 5000 images
+colon_n: 5000 images
+
+Unique image dimensions found: {'(768, 768, 3)'}
+
+Aspect Ratio Statistics:
+Mean: 1.00
+Std: 0.00
+
+File Size Statistics (KB):
+Mean: 93.35
+Std: 13.26
+Min: 60.14
+Max: 115.96

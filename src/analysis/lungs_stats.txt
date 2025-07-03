@@ -1,0 +1,19 @@
+Dataset Statistics:
+Number of classes: 3
+
+Class distribution:
+lung_aca: 5000 images
+lung_n: 5000 images
+lung_scc: 5000 images
+
+Unique image dimensions found: {'(768, 768, 3)'}
+
+Aspect Ratio Statistics:
+Mean: 1.00
+Std: 0.00
+
+File Size Statistics (KB):
+Mean: 59.83
+Std: 8.97
+Min: 42.68
+Max: 81.28
