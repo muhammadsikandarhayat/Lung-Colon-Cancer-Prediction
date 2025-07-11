@@ -21,10 +21,14 @@ dataset/
 .
 ├── dataset/          # Contains all image datasets
 ├── src/
-│   └── analysis/
-│       ├── plots/    # Generated visualization outputs
-│       ├── eda_colon.py  # Colon cancer image analysis
-│       └── eda_lungs.py  # Lung cancer image analysis
+│   ├── analysis/
+│   │   ├── plots/    # Generated visualization outputs
+│   │   ├── eda_colon.py  # Colon cancer image analysis
+│   │   └── eda_lungs.py  # Lung cancer image analysis
+│   └── models/
+│       ├── dataset.py    # Dataset and DataLoader implementation
+│       ├── cnn_model.py  # Custom CNN architecture
+│       └── train.py      # Training and evaluation script
 └── requirements.txt  # Python dependencies
 ```
 
@@ -41,6 +45,62 @@ dataset/
    ```bash
    pip install -r requirements.txt
    ```
+
+## Model Training
+
+### Custom CNN Architecture
+
+The project implements a custom 3-layer CNN for binary classification (cancer vs. normal tissue):
+
+- Input: 256x256 RGB images
+- Architecture:
+  - 3 convolutional layers with batch normalization and max pooling
+  - Dropout for regularization
+  - Binary classification output
+
+Features:
+
+- Data augmentation (random flips, rotations, color jittering)
+- Early stopping with configurable patience
+- Learning rate: 0.001 (Adam optimizer)
+- Batch size: 32
+- Train/Val split: 80/20
+
+### Training Script (`train.py`)
+
+To train the models:
+
+```bash
+cd src/models
+python train.py
+```
+
+The training script:
+
+- Trains separate models for lung and colon cancer
+- Implements early stopping to prevent overfitting
+- Saves best model checkpoints
+- Generates training metrics and plots
+- Evaluates using accuracy, sensitivity, and specificity
+
+### Output Files
+
+Training generates the following in `src/models/checkpoints/`:
+
+1. Model Checkpoints:
+
+   - `lung_model.pth`: Best lung cancer model
+   - `colon_model.pth`: Best colon cancer model
+
+2. Training Metrics:
+
+   - `lung_metrics.json`: Training history for lung model
+   - `colon_metrics.json`: Training history for colon model
+
+3. Performance Plots:
+   - Training loss curves
+   - Validation metrics (accuracy, sensitivity, specificity)
+   - Saved in `checkpoints/plots/`
 
 ## Analysis Scripts
 
@@ -151,3 +211,18 @@ All plots are saved in `src/analysis/plots/`:
 - HSV color space analysis
 - Mean and standard deviation for each channel
 - Intensity distributions
+
+## Model Performance Metrics
+
+The models are evaluated using:
+
+- Accuracy: Overall classification accuracy
+- Sensitivity: True positive rate (cancer detection rate)
+- Specificity: True negative rate (normal tissue detection rate)
+
+Training includes:
+
+- Early stopping with patience=7 epochs
+- Real-time metric tracking
+- Best model checkpoint saving
+- Comprehensive performance visualization
