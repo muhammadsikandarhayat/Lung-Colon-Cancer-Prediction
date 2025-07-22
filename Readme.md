@@ -120,8 +120,8 @@ Each plot shows all three models (CNN, EfficientNet, ResNet) compared on:
 
 **Example:**
 
-![Lung Model Comparison](src/models/compare_plots/lung_model_comparison.png)
-![Colon Model Comparison](src/models/compare_plots/colon_model_comparison.png)
+![Lung Model Comparison](src/compare_plots/lung_model_comparison.png)
+![Colon Model Comparison](src/compare_plots/colon_model_comparison.png)
 
 ## Output Files
 
