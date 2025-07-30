@@ -1,146 +1,188 @@
-# Lung and Colon Cancer Image Analysis
+# Lung-Colon Cancer Prediction AI
 
-This project implements a comprehensive deep learning approach for lung and colon cancer classification using microscopy images. The project includes training a custom three-layer CNN from scratch and fine-tuning pre-trained ResNet and EfficientNet models using transfer learning, followed by performance comparison and analysis.
+This project implements a deep learning system for detecting lung and colon cancer from medical images using convolutional neural networks (CNNs). The system includes both training scripts and a web application for real-time inference.
 
-## Dataset Structure
+## Features
 
-```
-dataset/
-├── colon_image_sets/
-│   ├── colon_aca/    # Colon adenocarcinoma images
-│   └── colon_n/      # Normal colon tissue images
-└── lung_image_sets/
-    ├── lung_aca/     # Lung adenocarcinoma images
-    ├── lung_n/       # Normal lung tissue images
-    └── lung_scc/     # Lung squamous cell carcinoma images
-```
+- **Deep Learning Models**: Custom CNN architecture for cancer detection
+- **Transfer Learning**: Support for ResNet and EfficientNet models
+- **Web Application**: FastAPI backend with React frontend for easy testing
+- **Comprehensive Analysis**: EDA scripts and model comparison tools
+- **Multiple Cancer Types**: Support for both lung and colon cancer detection
 
 ## Project Structure
 
 ```
-.
-├── dataset/          # Contains all image datasets
-├── src/
-│   ├── analysis/
-│   │   ├── plots/    # Generated visualization outputs
-│   │   ├── eda_colon.py  # Colon cancer image analysis
-│   │   └── eda_lungs.py  # Lung cancer image analysis
-│   └── models/
-│       ├── cnn/                  # Baseline CNN model code and checkpoints
-│       ├── transfer_learning/
-│       │   ├── EfficientNet/     # EfficientNet transfer learning code and checkpoints
-│       │   └── ResNet/           # ResNet transfer learning code and checkpoints
-│       ├── dataset.py            # Dataset and DataLoader implementation
-│       ├── cnn_model.py          # Custom CNN architecture
-│       ├── train.py              # Training and evaluation script for CNN
-│       └── compare_models.py     # Script to compare all models
-└── requirements.txt  # Python dependencies
+Lung-Colon-Cancer-Prediction/
+├── backend/                 # FastAPI backend
+│   ├── main.py             # Main API endpoints
+│   └── start_server.py     # Server startup script
+├── frontend/               # React frontend
+│   ├── public/
+│   ├── src/
+│   └── package.json
+├── src/                    # Core ML code
+│   ├── models/            # Model definitions and training
+│   ├── analysis/          # EDA and analysis scripts
+│   └── compare_models.py  # Model comparison
+├── dataset/               # Dataset storage
+└── requirements.txt       # Python dependencies
 ```
 
-## Setup
+## Quick Start
 
-1. Create a virtual environment (recommended):
+### 1. Backend Setup
 
-   ```bash
-   python -m venv env
-   source env/bin/activate  # On Windows: env\Scripts\activate
-   ```
+1. **Install Python dependencies:**
 
-2. Install dependencies:
    ```bash
    pip install -r requirements.txt
    ```
 
-## Trained Models
+2. **Start the FastAPI backend:**
 
-This project trains and compares the following models:
+   ```bash
+   cd backend
+   python start_server.py
+   ```
 
-- **Custom 3-layer CNN** (from scratch, see `cnn/`)
-- **EfficientNet (transfer learning)** (see `transfer_learning/EfficientNet/`)
-- **ResNet (transfer learning)** (see `transfer_learning/ResNet/`)
+   The API will be available at `http://localhost:8000`
 
-Each model is trained separately for both lung and colon cancer datasets.
+### 2. Frontend Setup
 
-## Model Training Scripts
+1. **Install Node.js dependencies:**
 
-### Baseline CNN
+   ```bash
+   cd frontend
+   npm install
+   ```
 
-To train the baseline CNN:
+2. **Start the React development server:**
+
+   ```bash
+   npm start
+   ```
+
+   The frontend will be available at `http://localhost:3000`
+
+## API Endpoints
+
+- `GET /` - Health check
+- `GET /health` - API status and loaded models
+- `GET /models` - Available models information
+- `POST /predict/{cancer_type}` - Predict cancer from uploaded image
+  - `cancer_type`: Either 'lung' or 'colon'
+  - `model_type`: Either 'cnn', 'resnet', 'efficientnet', or 'all' (default: 'cnn')
+  - `file`: Image file (JPEG, PNG, etc.)
+
+## Frontend Features
+
+- **Step-by-Step Interface**: Guided workflow for cancer type and model selection
+- **Modern UI**: Clean, responsive design with gradient backgrounds and step indicators
+- **Image Upload**: Drag-and-drop or click-to-upload functionality
+- **Real-time Preview**: Image preview before prediction
+- **Cancer Type Selection**: Choose between lung and colon cancer models
+- **Model Selection**: Choose between custom CNN, transfer learning models (ResNet, EfficientNet), or all models for comparison
+- **Multi-Model Comparison**: Compare predictions from all three models simultaneously
+- **Detailed Results**: Confidence scores and probability breakdowns
+- **Visual Feedback**: Color-coded results and loading states
+
+## Model Information
+
+### CNN Architecture
+
+- 3 convolutional layers with batch normalization
+- Max pooling for dimensionality reduction
+- Dropout for regularization
+- 2-class classification (Normal vs Cancer)
+
+### Available Models
+
+**CNN Models (Custom Architecture):**
+
+- **Lung Cancer Model**: `src/models/cnn/checkpoints/lung_model.pth`
+- **Colon Cancer Model**: `src/models/cnn/checkpoints/colon_model.pth`
+
+**ResNet Models (Transfer Learning):**
+
+- **Lung Cancer Model**: `src/models/transfer_learning/ResNet/checkpoints/lung_resnet.pth`
+- **Colon Cancer Model**: `src/models/transfer_learning/ResNet/checkpoints/colon_resnet.pth`
+
+**EfficientNet Models (Transfer Learning):**
+
+- **Lung Cancer Model**: `src/models/transfer_learning/EfficientNet/checkpoints/lung_efficientnet.pth`
+- **Colon Cancer Model**: `src/models/transfer_learning/EfficientNet/checkpoints/colon_efficientnet.pth`
+
+## Training
+
+To train new models or retrain existing ones:
 
 ```bash
+# Train CNN models
 cd src/models/cnn
 python train.py
-```
 
-### EfficientNet Transfer Learning
+# Train transfer learning models
+cd src/models/transfer_learning/ResNet
+python train_resnet.py
 
-To train EfficientNet:
-
-```bash
 cd src/models/transfer_learning/EfficientNet
 python train_efficientnet.py
 ```
 
-### ResNet Transfer Learning
+## Analysis
 
-To train ResNet:
+Run exploratory data analysis:
 
 ```bash
-cd src/models/transfer_learning/ResNet
-python train_resnet.py
+cd src/analysis
+python eda_lungs.py
+python eda_colon.py
 ```
 
-Each script will:
-
-- Train on both lung and colon datasets
-- Save best model checkpoints
-- Save training metrics as JSON
-- Generate training/validation metric plots
-
-## Model Comparison
-
-After training, you can compare all models using:
+Compare model performances:
 
 ```bash
-cd src/models
+cd src
 python compare_models.py
 ```
 
-This will generate comparison plots for both lung and colon cancer classification in `compare_plots/`:
+## Requirements
 
-- `lung_model_comparison.png`
-- `colon_model_comparison.png`
+### Python Dependencies
 
-Each plot shows all three models (CNN, EfficientNet, ResNet) compared on:
+- FastAPI
+- PyTorch
+- Torchvision
+- PIL (Pillow)
+- NumPy
+- Matplotlib
+- Seaborn
+- Scikit-learn
 
-- Validation Accuracy
-- Validation Sensitivity
-- Validation Specificity
-- Validation Loss
+### Node.js Dependencies
 
-**Example:**
+- React 18
+- Axios
+- Lucide React (icons)
 
-![Lung Model Comparison](src/compare_plots/lung_model_comparison.png)
-![Colon Model Comparison](src/compare_plots/colon_model_comparison.png)
+## Usage
 
-## Output Files
+1. Start both backend and frontend servers
+2. Open `http://localhost:3000` in your browser
+3. Select cancer type (lung or colon)
+4. Choose a specific model or "All Models" for comparison
+5. Upload a medical image
+6. Click "Predict Cancer" to get results
+7. View detailed prediction(s) with confidence scores and probability breakdowns
 
-Each model's checkpoints and metrics are saved in their respective `checkpoints/` directories:
+## Important Notes
 
-- `cnn/checkpoints/`
-  - `lung_model.pth`, `lung_metrics.json`, plots
-  - `colon_model.pth`, `colon_metrics.json`, plots
-- `transfer_learning/EfficientNet/checkpoints/`
-  - `lung_efficientnet.pth`, `lung_efficientnet_metrics.json`, plots
-  - `colon_efficientnet.pth`, `colon_efficientnet_metrics.json`, plots
-- `transfer_learning/ResNet/checkpoints/`
-  - `lung_resnet.pth`, `lung_resnet_metrics.json`, plots
-  - `colon_resnet.pth`, `colon_resnet_metrics.json`, plots
+- This is a research tool and should not be used as a substitute for professional medical diagnosis
+- Always consult with healthcare professionals for medical decisions
+- The models are trained on specific datasets and may not generalize to all medical images
+- Ensure proper data privacy and security when handling medical images
 
-## Model Performance Metrics
+## License
 
-The models are evaluated using:
-
-- **Accuracy:** Overall classification accuracy
-- **Sensitivity:** True positive rate (cancer detection rate)
-- **Specificity:** True negative rate (normal tissue detection rate)
+This project is for research and educational purposes only.
