@@ -109,26 +109,8 @@ def preprocess_image(image_bytes: bytes):
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Error preprocessing image: {str(e)}")
 
-@app.get("/")
-async def root():
-    """Root endpoint"""
-    return {"message": "Cancer Prediction API is running"}
-
-@app.get("/health")
-async def health_check():
-    """Health check endpoint"""
-    return {"status": "healthy", "models_loaded": list(loaded_models.keys())}
-
 @app.post("/predict/{cancer_type}")
 async def predict_cancer(cancer_type: str, file: UploadFile = File(...), model_type: str = "cnn"):
-    """
-    Predict cancer from uploaded image
-    
-    Args:
-        cancer_type: Either 'lung' or 'colon'
-        model_type: Either 'cnn', 'resnet', 'efficientnet', or 'all' (default: 'cnn')
-        file: Image file (JPEG, PNG, etc.)
-    """
     try:
         # Validate cancer type
         if cancer_type not in ["lung", "colon"]:
@@ -201,8 +183,6 @@ async def predict_cancer(cancer_type: str, file: UploadFile = File(...), model_t
                 "filename": file.filename
             }
         else:
-            # Predict with single model
-            # Load model
             model = load_model(cancer_type, model_type)
             
             # Make prediction
