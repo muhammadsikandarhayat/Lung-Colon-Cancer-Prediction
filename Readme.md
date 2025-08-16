@@ -166,7 +166,7 @@ python compare_models.py
 ## Usage
 
 1. Start both backend and frontend servers
-2. Open `http://localhost:5173` in your browser
+2. Open `http://localhost:3000` in your browser
 3. Select cancer type (lung or colon)
 4. Choose a specific model
 5. Upload a medical image
@@ -183,3 +183,4 @@ python compare_models.py
 ## License
 
 This project is for research and educational purposes only.
+
