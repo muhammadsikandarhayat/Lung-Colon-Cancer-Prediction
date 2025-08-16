@@ -15,8 +15,7 @@ This project implements a deep learning system for detecting lung and colon canc
 ```
 Lung-Colon-Cancer-Prediction/
 ├── backend/                 # FastAPI backend
-│   ├── main.py             # Main API endpoints
-│   └── start_server.py     # Server startup script
+│   ├── main.py             # Main API endpoints and server
 ├── frontend/               # React frontend
 │   ├── public/
 │   ├── src/
@@ -43,7 +42,7 @@ Lung-Colon-Cancer-Prediction/
 
    ```bash
    cd backend
-   python start_server.py
+   python main.py
    ```
 
    The API will be available at `http://localhost:8000`
@@ -63,16 +62,14 @@ Lung-Colon-Cancer-Prediction/
    npm start
    ```
 
-   The frontend will be available at `http://localhost:3000`
+   The frontend will be available at `http://localhost:3000` port configured in vite.config.js
 
 ## API Endpoints
 
-- `GET /` - Health check
-- `GET /health` - API status and loaded models
-- `GET /models` - Available models information
+- `GET /models` - Get info about available models
 - `POST /predict/{cancer_type}` - Predict cancer from uploaded image
   - `cancer_type`: Either 'lung' or 'colon'
-  - `model_type`: Either 'cnn', 'resnet', 'efficientnet', or 'all' (default: 'cnn')
+  - `model_type`: Either 'cnn', 'resnet', 'efficientnet' or all
   - `file`: Image file (JPEG, PNG, etc.)
 
 ## Frontend Features
@@ -169,9 +166,9 @@ python compare_models.py
 ## Usage
 
 1. Start both backend and frontend servers
-2. Open `http://localhost:3000` in your browser
+2. Open `http://localhost:5173` in your browser
 3. Select cancer type (lung or colon)
-4. Choose a specific model or "All Models" for comparison
+4. Choose a specific model
 5. Upload a medical image
 6. Click "Predict Cancer" to get results
 7. View detailed prediction(s) with confidence scores and probability breakdowns
