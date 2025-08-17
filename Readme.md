@@ -59,7 +59,7 @@ Lung-Colon-Cancer-Prediction/
 2. **Start the React development server:**
 
    ```bash
-   npm start
+   npm run dev
    ```
 
    The frontend will be available at `http://localhost:3000` port configured in vite.config.js
@@ -183,4 +183,5 @@ python compare_models.py
 ## License
 
 This project is for research and educational purposes only.
+
 
